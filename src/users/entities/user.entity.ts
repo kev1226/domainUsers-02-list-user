@@ -33,5 +33,5 @@ export class User {
 
   @ApiProperty({ type: Date, required: false })
   @DeleteDateColumn()
-  deletedAt: Date; //  corrected name from 'deleteAd'
+  deletedAd: Date; //  corrected name from 'deleteAd'
 }
