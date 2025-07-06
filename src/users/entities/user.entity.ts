@@ -1,4 +1,4 @@
-import { Role } from '../../common/enums/role.enum';
+import { Role } from 'auth-common-nestjs';
 import {
   Column,
   DeleteDateColumn,
