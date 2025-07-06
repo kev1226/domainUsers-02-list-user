@@ -1,15 +1,13 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '../common/guards/auth.guard';
 import { UsersService } from './users.service';
-import { Auth } from 'src/common/decorators/auth.decorator';
-import { Role } from 'src/common/enums/role.enum';
+import { AuthGuard, Roles, Role } from 'auth-common-nestjs/dist';
 
 @Controller('list')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @UseGuards(AuthGuard)
-  @Auth(Role.ADMIN)
+  @UseGuards(AuthGuard) // Usamos el guard para proteger la ruta
+  @Roles(Role.Admin) // Usamos el decorador para asignar roles (en este caso 'admin')
   @Get()
   findAll() {
     return this.usersService.findAll();
