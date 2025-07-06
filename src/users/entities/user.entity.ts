@@ -1,29 +1,37 @@
-import { Role } from 'auth-common-nestjs';
 import {
   Column,
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Role } from 'auth-common-nestjs';
+import { ApiProperty } from '@nestjs/swagger';
 
+/**
+ * User entity representing the structure of the 'users' table.
+ */
 @Entity()
 export class User {
+  @ApiProperty()
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ApiProperty()
   @Column()
   name: string;
 
+  @ApiProperty()
   @Column({ unique: true, nullable: false })
   email: string;
 
   @Column({ nullable: false, select: false })
-  password: string;
+  password: string; // Not exposed in Swagger
 
-  @Column({ type: 'enum', default: Role.USER, enum: Role })
+  @ApiProperty({ enum: Role, default: Role.USER })
+  @Column({ type: 'enum', enum: Role, default: Role.USER })
   role: Role;
 
-  @Column()
+  @ApiProperty({ type: Date, required: false })
   @DeleteDateColumn()
-  deleteAd: Date;
+  deletedAt: Date; //  corrected name from 'deleteAd'
 }
